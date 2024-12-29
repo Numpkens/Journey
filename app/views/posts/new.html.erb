@@ -1,0 +1,80 @@
+<div class="editor-container">
+  <h2 class="heading-gradient">Create New Post</h2>
+
+  <%= form_with(model: @post, local: true, class: "post-form") do |f| %>
+    <% if @post.errors.any? %>
+      <div class="alert alert-danger">
+        <h4 class="alert-heading"><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h4>
+        <ul class="mb-0">
+          <% @post.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="editor-header">
+      <%= f.label :title, class: "form-label" %>
+      <%= f.text_field :title,
+          class: "form-control form-control-lg",
+          placeholder: "Enter your post title...",
+          autofocus: true %>
+    </div>
+
+    <div class="editor-content">
+      <%= f.label :content, class: "form-label" %>
+      <%= f.text_area :content,
+          class: "content-editor",
+          placeholder: "Write your story...",
+          id: "post-content" %>
+    </div>
+
+    <div class="editor-media">
+      <%= f.label :thumbnail, "Cover Image", class: "form-label" %>
+      <div class="upload-container">
+        <%= f.file_field :thumbnail,
+            class: "form-control",
+            accept: 'image/*' %>
+      </div>
+    </div>
+
+    <div class="editor-actions">
+      <%= f.submit "Publish Post", class: "btn btn-primary" %>
+      <%= link_to "Cancel", posts_path, class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  tinymce.init({
+    selector: '#post-content',
+    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+    width: '100%',
+    height: 800,
+    menubar: false,
+    skin: 'oxide-dark',
+    content_css: 'dark',
+    content_style: `
+      body {
+        font-family: Inter, sans-serif;
+        font-size: 16px;
+        color: #f3f4f6;
+        line-height: 1.6;
+        padding: 1rem 2rem;
+        background: #1f2937;
+      }
+    `,
+    setup: function(editor) {
+      editor.on('init', function() {
+        editor.getContainer().style.transition = "border-color 0.2s ease-in-out";
+      });
+      editor.on('focus', function() {
+        editor.getContainer().style.borderColor = "#3b82f6";
+      });
+      editor.on('blur', function() {
+        editor.getContainer().style.borderColor = "rgba(255, 255, 255, 0.1)";
+      });
+    }
+  });
+</script>

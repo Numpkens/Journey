@@ -1,0 +1,2 @@
+web: bin/rails server -p 3000
+css: sass --watch app/assets/stylesheets/app.scss:app/assets/builds/app.css --load-path=node_modules/bootstrap/scss

@@ -1,0 +1,59 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="card bg-dark border-secondary">
+        <% if @post.thumbnail.attached? %>
+          <div class="post-header-image">
+            <%= image_tag @post.thumbnail, class: "card-img-top", style: "height: 300px; object-fit: cover;" %>
+          </div>
+        <% end %>
+
+        <div class="card-body">
+          <h1 class="card-title text-gradient mb-3"><%= @post.title %></h1>
+
+          <div class="post-meta mb-4">
+            <div class="d-flex align-items-center">
+              <div class="author-avatar gradient-border me-3">
+                <%= @post.user.email[0].upcase %>
+              </div>
+              <div class="post-info">
+                <div class="author-name"><%= @post.user.email.split('@')[0] %></div>
+                <small class="text-secondary">
+                  <i class="bi bi-clock me-1"></i>
+                  Posted <%= time_ago_in_words(@post.created_at) %> ago
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="post-content mb-4">
+            <%= simple_format(@post.content, class: "text-light") %>
+          </div>
+
+          <div class="post-actions d-flex gap-3 mt-5">
+            <% if user_signed_in? && @post.user == current_user %>
+              <%= link_to edit_post_path(@post), class: "btn btn-primary" do %>
+                <i class="bi bi-pencil me-2"></i>Edit
+              <% end %>
+
+              <%= button_to post_path(@post),
+                  method: :delete,
+                  class: "btn btn-outline-danger",
+                  form: {
+                    data: {
+                      turbo_confirm: "Are you sure you want to delete this post?"
+                    }
+                  } do %>
+                <i class="bi bi-trash me-2"></i>Delete
+              <% end %>
+            <% end %>
+
+            <%= link_to posts_path, class: "btn btn-secondary ms-auto" do %>
+              <i class="bi bi-arrow-left me-2"></i>Back to Posts
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

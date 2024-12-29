@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="home-header">
+    <!-- User filter in top right -->
+    <div class="user-filter">
+      <%= form_with url: root_path, method: :get, class: "user-filter-form" do |f| %>
+        <div class="filter-input-wrapper">
+          <i class="bi bi-person"></i>
+          <%= f.text_field :user_filter,
+              placeholder: "Search by user...",
+              class: "filter-input",
+              value: params[:user_filter] %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Centered post search -->
+    <h1 class="heading-gradient">Explore Posts</h1>
+
+    <div class="search-container">
+      <%= form_with url: root_path, method: :get, class: "search-form", data: { controller: "search-form" } do |f| %>
+        <div class="search-input-wrapper">
+          <i class="bi bi-search"></i>
+          <%= f.text_field :query,
+              placeholder: "Search posts...",
+              class: "search-input",
+              value: params[:query] %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="posts-grid">
+    <% @posts.each do |post| %>
+      <div class="post-card">
+        <%= link_to post_path(post), class: "post-link" do %>
+          <div class="post-image-wrapper">
+            <% if post.thumbnail.attached? %>
+              <%= image_tag post.thumbnail, class: "post-image" %>
+            <% else %>
+              <div class="post-image-placeholder">
+                <i class="bi bi-image"></i>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="post-content">
+            <h2 class="post-title"><%= post.title %></h2>
+            <p class="post-excerpt"><%= truncate(post.content, length: 120) %></p>
+
+            <div class="post-meta">
+              <div class="author-info">
+                <div class="author-avatar">
+                  <%= post.user.email[0].upcase %>
+                </div>
+                <div class="author-details">
+                  <span class="author-name"><%= post.user.email.split('@')[0] %></span>
+                  <div class="post-stats">
+                    <span class="post-date">
+                      <i class="bi bi-clock"></i>
+                      <%= time_ago_in_words(post.created_at) %> ago
+                    </span>
+                    <span class="view-count">
+                      <i class="bi bi-eye"></i>
+                      <%= pluralize(post.view_count, 'view') %>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @posts.empty? %>
+    <div class="empty-state">
+      <i class="bi bi-journal-text"></i>
+      <h3>No posts found</h3>
+      <p>Try adjusting your search or filters</p>
+    </div>
+  <% end %>
+</div>
