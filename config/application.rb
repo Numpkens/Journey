@@ -9,7 +9,7 @@ module Journey
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
-
+    config.assets.enabled = true
     # Please, add to the `config/application.rb` if you want to use this feature
     #
     # config.time_zone = "Central Time (US & Canada)"

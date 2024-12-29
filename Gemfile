@@ -5,7 +5,7 @@ gem "devise"
 gem "bootstrap"
 gem "sassc-rails"
 gem "rails", "~> 8.0.1"
-gem "propshaft"
+#gem "propshaft"
 gem "sqlite3", ">= 2.1"
 gem "puma", ">= 5.0"
 gem "importmap-rails"
@@ -31,4 +31,15 @@ end
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
+end
+group :production do
+  gem 'pg' # PostgreSQL
+end
+
+group :development, :test do
+  gem "sqlite3", ">= 2.1"
+end
+group :assets do
+  gem 'sass-rails'
+  gem 'uglifier'
 end

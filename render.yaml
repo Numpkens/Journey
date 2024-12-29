@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: journey
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: journey_db
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+
+databases:
+  - name: journey_db
+    ipAllowList: []
