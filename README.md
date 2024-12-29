@@ -1,24 +1,33 @@
-# README
+# Journey
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A modern blog platform built with Ruby on Rails, featuring a clean and responsive design.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+- User authentication
+- Blog post creation and management
+- Rich text editor
+- Image uploads
+- Responsive design
+- Search functionality
+- User profiles
 
-* System dependencies
+## Technology Stack
 
-* Configuration
+- Ruby 3.x
+- Rails 7.x
+- PostgreSQL
+- Sass/SCSS
+- Stimulus.js
+- Turbo
+- Active Storage
+- Action Text
 
-* Database creation
+## Getting Started
 
-* Database initialization
+### Prerequisites
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Ruby 3.x
+- PostgreSQL
+- Node.js
+- Yarn
